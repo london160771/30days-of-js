@@ -36,6 +36,23 @@ const nested = [[1, 2], [3, 4], [5, [6, 7]]];
 const flatOnce = nested.flat();
 const flatAll  = nested.flat(Infinity);
 
+// 1. Use reduce to count how many items are in each category
+const categoryCounts = products.reduce((counts, p) => {
+  counts[p.category] = (counts[p.category] || 0) + 1
+  return counts
+}, {})
+
+// → { electronics: 3, clothing: 3 }
+
+// 2. Use map + filter (or flatMap) to get names of out-of-stock items in uppercase
+const outofstock = products.filter(p => !p.inStock).map(p => p.name.toUpperCase())
+
+// 3. Sort products by name alphabetically
+const names2 = [...products].sort((a,b) => a.name.localeCompare(b.name)).map(p => p.name)
+
+
+
+
 // --- Display results in the page ---
 const output = document.getElementById("output");
 
@@ -55,6 +72,9 @@ show("every — all have prices?", allHavePrices);
 show("sort — names by price asc", byPrice.map(p => `${p.name} ($${p.price})`));
 show("flat(1) — one level deep", flatOnce);
 show("flat(Infinity) — fully flat", flatAll);
+show("classwork2 - outofstock-items", outofstock)
+show("classwork3 - names alphabetically", names2)
+show("classwork1 - electronic counts", categoryCounts)
 
 // --- YOUR CHALLENGE ---
 // Try adding these yourself:
